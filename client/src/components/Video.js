@@ -1,9 +1,11 @@
 import React, {useRef, useCallback, useState, useEffect} from 'react'
 import Webcam from "react-webcam";
 import socket from '../config';
+import Gallery from './Gallery';
 import Peer from 'simple-peer';
 import { SimpleGrid, Box } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react"
+
 
 const mergeRefs = (...refs) => {
   const filteredRefs = refs.filter(Boolean);
@@ -154,7 +156,7 @@ function Video({u, room}) {
                 })}
             </SimpleGrid>
             <hr />
-            <SimpleGrid columns={4} spacing="20px">
+            {/* <SimpleGrid columns={4} spacing="20px">
               {
                 images.map(({imageSrc}, i) => (
                   <Box className="img" key={i}>
@@ -164,7 +166,8 @@ function Video({u, room}) {
                   </Box>
                 ))
               }
-            </SimpleGrid>
+            </SimpleGrid> */}
+            <Gallery images={images} />
     </div>
   );
 }
