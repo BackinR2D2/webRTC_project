@@ -30,13 +30,13 @@ const webcamOptions = {
 
 function Cam ({peer}) {
   const ref = useRef();
-  const webcamRef = useRef();
+  // const webcamRef = useRef();
   const capture = useCallback(
     () => {
-      const imageSrc = webcamRef.current.getScreenshot();
+      const imageSrc = ref.current.getScreenshot();
       socket.emit("snap-image", imageSrc);
     },
-    [webcamRef]
+    [ref]
   );
   
   useEffect(() => {
@@ -49,7 +49,7 @@ function Cam ({peer}) {
 
   return (
       <div>
-        <Webcam ref={mergeRefs(ref, webcamRef)} audio={true} videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
+        <Webcam ref={ref} audio={true} videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
         <Button colorScheme="teal" size="sm" onClick={capture}>Capture photo</Button>
       </div>
   );
@@ -131,20 +131,20 @@ function Video({u, room}) {
       return peer;
   }
 
-    const webcamRef = useRef(null);
+    // const webcamRef = useRef(null);
     const capture = useCallback(
       () => {
-        const imageSrc = webcamRef.current.getScreenshot();
+        const imageSrc = userVideo.current.getScreenshot();
         socket.emit("snap-image", imageSrc);
       },
-      [webcamRef]
+      [userVideo]
     );
 
     return (
     <div>
             <SimpleGrid columns={2} spacing="12px">
                 <Box>
-                  <Webcam ref={mergeRefs(userVideo, webcamRef)} muted videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
+                  <Webcam ref={userVideo} muted videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
                   <Button colorScheme="teal" size="sm" onClick={capture}>Capture photo</Button>
                 </Box>
                 {peers && peers.map((peer, index) => {
@@ -156,17 +156,6 @@ function Video({u, room}) {
                 })}
             </SimpleGrid>
             <hr />
-            {/* <SimpleGrid columns={4} spacing="20px">
-              {
-                images.map(({imageSrc}, i) => (
-                  <Box className="img" key={i}>
-                    <a href={imageSrc} download="image.jpeg">
-                      <img alt="userImg" src={imageSrc} />
-                    </a>
-                  </Box>
-                ))
-              }
-            </SimpleGrid> */}
             <Gallery images={images} />
     </div>
   );
