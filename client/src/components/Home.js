@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import url from '../urls';
 
 function Home() {
   const [id, setId] = useState("");
   const [generated, setGenerated] = useState(false);
 
   const handleRoomGenerate = async () => {
-    const {data: id} = await axios(`http://localhost:5000/homepage`);
+    const {data: id} = await axios(`${url}/homepage`);
     setId(id);
     setGenerated(true);
   }

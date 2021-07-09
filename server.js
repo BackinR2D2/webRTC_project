@@ -1,11 +1,12 @@
 require('dotenv').config();
+const url = require('./urls');
 const express = require('express');
 const app = express();
 app.use(require('cors')());
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
     cors: {
-      origin: 'http://localhost:3000',
+      origin: url,
     },
     maxHttpBufferSize: 1e8,
     pingTimeout: 30000,
