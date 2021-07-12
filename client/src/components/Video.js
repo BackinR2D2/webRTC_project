@@ -182,21 +182,10 @@ function Video({u, room}) {
 
     return (
     <div>
-            <SimpleGrid columns={2} spacing="12px">
-                <Box>
-                  <Webcam ref={userVideo} muted videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
-                  <Button colorScheme="teal" size="sm" onClick={capture}>Capture photo</Button>
-                </Box>
-                {peers && peers.map((peer, index) => {
-                    return (
-                      <Box key={index}>
-                        <Cam key={index} peer={peer} />
-                      </Box>
-                    );
-                })}
-            </SimpleGrid>
-            <hr />
-            <Gallery images={images} />
+      <Webcam ref={userVideo} muted videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
+      <Button colorScheme="teal" size="sm" onClick={capture}>Capture photo</Button>
+      <hr />
+      <Gallery images={images} />
     </div>
   );
 }
