@@ -106,6 +106,26 @@ function Video({u, room}) {
           initiator: true,
           trickle: false,
           stream,
+          config: {
+            iceServers: [
+              {
+                urls: 'stun:stun.webcalldirect.com:3478'
+              },
+              {
+                urls: 'stun:stun.siptraffic.com:3478'
+              },
+              {
+                urls: 'turn:192.158.29.39:3478?transport=tcp',
+                credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                username: '28224511:1379330808'
+              },
+              {
+                urls: 'turn:turn.anyfirewall.com:443?transport=tcp',
+                credential: 'webrtc',
+                username: 'webrtc'
+              }
+            ]
+          },
       });
 
       peer.on("signal", signal => {
@@ -120,6 +140,26 @@ function Video({u, room}) {
           initiator: false,
           trickle: false,
           stream,
+          config: {
+            iceServers: [
+              {
+                urls: 'stun:stun.webcalldirect.com:3478'
+              },
+              {
+                urls: 'stun:stun.siptraffic.com:3478'
+              },
+              {
+                urls: 'turn:192.158.29.39:3478?transport=tcp',
+                credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                username: '28224511:1379330808'
+              },
+              {
+                urls: 'turn:turn.anyfirewall.com:443?transport=tcp',
+                credential: 'webrtc',
+                username: 'webrtc'
+              }
+            ]
+          },
       })
 
       peer.on("signal", signal => {
