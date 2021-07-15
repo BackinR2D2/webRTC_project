@@ -2,13 +2,16 @@ import React, {useState, useEffect} from 'react'
 import socket from '../config';
 import Video from './Video';
 import { Button } from '@chakra-ui/react';
-// import {
-//     FormControl,
-//     FormLabel,
-//     FormErrorMessage,
-//     FormHelperText,
-//     Input
-//   } from "@chakra-ui/react"
+import {
+    FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText,
+    Input,
+    SimpleGrid,
+    Box
+} from "@chakra-ui/react";
+import { CheckCircleIcon } from '@chakra-ui/icons'
 
 function Room() {
     const [users, setUsers] = useState(null);
@@ -35,30 +38,22 @@ function Room() {
     const handleMessage = (e) => {
         e.preventDefault();
         setMsg("");
-        socket.emit("sendMessage", {msg, room});
+        socket.emit("sendMessage", {msg, room, name});
     }
 
     return (
-        <div>
+        <>
             {
                 nameGenerated ?
-                    <div>
-                        <h3>
-                            Room {room}
-                        </h3>
-                        <div className="video">
+                <>
+                    <h3>
+                        Room {room}
+                    </h3>   
+                    <SimpleGrid style={{height: `${97.5}vh`, gridTemplateColumns: `auto ${24}vw`}} columns={2} spacingX="40px" spacingY="20px">
+                        <Box className="video">
                             <Video users={users} room={room} />
-                        </div>
-                        <div className="chat">
-                            <form onSubmit={handleMessage}>
-                                <input type="text" value={msg} onChange={(e) => setMsg(e.target.value)} required />
-                                <Button colorScheme="teal" variant="outline" type="submit">Send message</Button>
-                            </form>
-                            {/* <FormControl onSubmit={handleMessage} id="sendMessage" isRequired>
-                                <Input value={msg} onChange={(e) => setMsg(e.target.value)} placeholder="Message" />
-                                <Button colorScheme="teal" variant="outline" type="submit">Send message</Button>
-                            </FormControl> */}
-                            <br />
+                        </Box>
+                        <Box className="chat">
                             <div className="messages">
                                 {
                                     messages && messages.map((m,i) => (
@@ -70,23 +65,33 @@ function Room() {
                                     ))
                                 }
                             </div>
-                        </div>
-                    </div>
+                            <form onSubmit={handleMessage} style={{position: 'fixed', bottom: 0, width: `${100}%`}}>
+                                <FormControl>
+                                    <Input type="text" value={msg} onChange={(e) => setMsg(e.target.value)} required />
+                                    <Button colorScheme="teal" variant="outline" type="submit">
+                                        <CheckCircleIcon w={6} h={6} />
+                                    </Button>
+                                </FormControl>
+                            </form>
+                        </Box>
+                    </SimpleGrid>
+                </>
                 :
                 <form onSubmit={(e) => {
                     e.preventDefault();
                     const opts = {
-                        name,room
-                    }
+                        name, room
+                    };
                     socket.emit("join-room", opts);
                     setNameGenerated(true);
-                }}>
-                    <input autoFocus type="text" required placeholder="Name" onChange={(e) => setName(e.target.value)} value={name} />
-                    <Button type="submit" colorScheme="blue">Save</Button>
-                    {/* <button type="submit">Save</button> */}
+                }} id="name" className="nameInp">
+                    <FormControl>
+                        <Input style={{maxWidth: `${520}px`}} required autoFocus placeholder="Name" onChange={(e) => setName(e.target.value)} value={name} />
+                        <Button type="submit" colorScheme="blue" className="nameBtn">Confirm</Button>      
+                    </FormControl>
                 </form>
             }
-        </div>
+        </>
     )
 }
 

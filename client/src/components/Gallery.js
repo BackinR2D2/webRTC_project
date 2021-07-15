@@ -21,11 +21,11 @@ function Gallery({images}) {
                 <SimpleGrid columns={4} spacing="20px">
                     {
                         images.map(({imageSrc}, i) => (
-                        <Box className="img" key={i}>
-                            <a href={imageSrc} download="image.jpeg">
-                            <img alt="userImg" src={imageSrc} />
-                            </a>
-                        </Box>
+                            <Box className="img" key={i}>
+                                <a href={imageSrc} download="image.jpeg">
+                                <img alt="userImg" src={imageSrc} />
+                                </a>
+                            </Box>
                         ))
                     }
                 </SimpleGrid>
@@ -37,28 +37,6 @@ function Gallery({images}) {
                 </ModalFooter>
             </ModalContent>
         </Modal>
-        {/* <ScaleFade initialScale={0.9} in={isOpen}>
-            <Box
-            p="40px"
-            color="white"
-            mt="4"
-            bg="teal.500"
-            rounded="md"
-            shadow="md"
-            >
-                <SimpleGrid columns={4} spacing="20px">
-                {
-                    images.map(({imageSrc}, i) => (
-                    <Box className="img" key={i}>
-                        <a href={imageSrc} download="image.jpeg">
-                        <img alt="userImg" src={imageSrc} />
-                        </a>
-                    </Box>
-                    ))
-                }
-                </SimpleGrid>
-            </Box>
-        </ScaleFade> */}
         </>
     )
 }

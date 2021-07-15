@@ -3,3 +3,60 @@
   justify-content: space-around;
   flex-wrap: wrap;
 } */
+
+#root {
+  height: 100vh;
+}
+
+.hpSection {
+  display: flex;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.idSection {
+  height: 40px;
+}
+
+.heading {
+  padding: 18px;
+  font-size: 1.5em;
+  font-weight: 100;
+}
+
+.generatedId {
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 24px;
+}
+
+.nameInp {
+  display: flex;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.nameBtn {
+  width: 20%;
+  margin: 18px;
+  font-size: 18px;
+}
+
+.messages {
+  height: 400px;
+  overflow: auto;
+}
+
+.message {
+  border-bottom: solid 1px #ccc;
+  padding: 20px;
+}
+
+/* message form design */
