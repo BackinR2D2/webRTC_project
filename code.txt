@@ -1,0 +1,60 @@
+<SimpleGrid style={{height: `${97.5}vh`, gridTemplateColumns: `auto ${24}vw`}} columns={3} spacingX="40px" spacingY="20px">
+                        <Box className="video">
+                            <Video users={users} room={room} />
+                        </Box>
+                        <Box>
+                            <Button colorScheme="teal" variant="outline" onClick={onOpen}>
+                                < BsPersonFill /> <span style={{height: `${16}px`, marginBottom: `${5}px`, marginLeft: `${8}px`}}>{users.length}</span>
+                            </Button>
+                            <Modal isOpen={isOpen} onClose={onClose}>
+                                <ModalOverlay />
+                                <ModalContent>
+                                <ModalHeader>Persons in the room</ModalHeader>
+                                <ModalCloseButton />
+                                    <ModalBody>
+                                        <List spacing={3}>
+                                            {/* <ListItem>
+                                                <ListIcon as={MdCheckCircle} color="green.500" />
+                                                    Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
+                                            </ListItem> */}
+                                            {
+                                                users.map((user, i) => (
+                                                    <ListItem key={i}>
+                                                        <ListIcon as={BsBullseye} color="green.500" />
+                                                        {user.name}
+                                                    </ListItem>
+                                                ))
+                                            }
+                                        </List>
+                                    </ModalBody>
+
+                                    <ModalFooter>
+                                        <Button colorScheme="blue" mr={3} onClick={onClose}>
+                                        Close
+                                        </Button>
+                                    </ModalFooter>
+                                </ModalContent>
+                            </Modal>
+                        </Box>
+                        <Box className="chat">
+                            <div className="messages">
+                                {
+                                    messages && messages.map((m,i) => (
+                                        <div className="message" key={i}>
+                                            <p>
+                                                {m.text} sent by <span><b>{m.user}</b></span>
+                                            </p>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <form onSubmit={handleMessage} style={{position: 'fixed', bottom: 0, width: `${100}%`}}>
+                                <FormControl>
+                                    <Input type="text" value={msg} onChange={(e) => setMsg(e.target.value)} required />
+                                    <Button colorScheme="teal" variant="outline" type="submit">
+                                        <CheckCircleIcon w={6} h={6} />
+                                    </Button>
+                                </FormControl>
+                            </form>
+                        </Box>
+                    </SimpleGrid>

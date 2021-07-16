@@ -14,7 +14,8 @@ function Home() {
 
   const handleRoomGenerate = async () => {
     const {data: id} = await axios(`${url}/homepage`);
-    const link = `${url}/room/${id}`;
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://web-rtc-project-five.vercel.app' : 'http://localhost:3000';
+    const link = `${baseUrl}/room/${id}`;
     setRoomId(id);
     setId(link);
     setGenerated(true);
@@ -33,7 +34,7 @@ function Home() {
   
   return (
 
-      <Container className="hpSection" maxW="xl" bg="gray.100" centerContent>
+      <Container className="hpSection" maxW="xl" bg="antiquewhite" centerContent>
         <div className="heading">
           <p>Generate a room and invite your friends</p>
         </div>

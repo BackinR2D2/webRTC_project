@@ -3,7 +3,6 @@ import { SimpleGrid, Box, Button, useDisclosure, Modal, ModalBody, ModalOverlay,
 
 function Gallery({images}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
     return (
         <>
         <Button onClick={onOpen}>Open Gallery</Button>
@@ -18,12 +17,12 @@ function Gallery({images}) {
             <ModalHeader>Gallery</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                <SimpleGrid columns={4} spacing="20px">
+                <SimpleGrid columns={4} spacing="4em" className="galleryPhotos">
                     {
                         images.map(({imageSrc}, i) => (
                             <Box className="img" key={i}>
                                 <a href={imageSrc} download="image.jpeg">
-                                <img alt="userImg" src={imageSrc} />
+                                    <img alt="userImg" src={JSON.parse(imageSrc)} style={{margin: `${0} auto`}} />
                                 </a>
                             </Box>
                         ))

@@ -23,16 +23,18 @@ function Video({room}) {
     const capture = useCallback(
       () => {
         const imageSrc = userVideo.current.getScreenshot();
-        socket.emit("snap-image", {imageSrc, room});
+        socket.emit("snap-image", {imageSrc: JSON.stringify(imageSrc), room});
       },
       [userVideo, room]
     );
 
     return (
-    <div>
+    <div className="vComp">
       <Webcam ref={userVideo} muted videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
-      <Button colorScheme="teal" size="sm" onClick={capture}>Capture photo</Button>
-      <Gallery images={images} />
+      <div className="btnSection">
+        <Button className="photoBtn" style={{margin: `${24}px`}} colorScheme="teal" onClick={capture}>Capture photo</Button>
+        <Gallery images={images} />
+      </div>
     </div>
   );
 }
