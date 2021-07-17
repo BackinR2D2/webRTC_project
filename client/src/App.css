@@ -127,3 +127,9 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
+
+@media screen and (max-width: 378px) {
+  .video {
+    height: initial;
+  }
+}

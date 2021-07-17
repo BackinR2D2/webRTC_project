@@ -15,15 +15,15 @@ function Video({room}) {
     const [images, setImages] = useState([]);
 
     useEffect(() => {
-      socket.on("image", ({imageSrc}) => {
-        setImages([...images, {imageSrc}]);
+      socket.on("image", (imageSrc) => {
+        setImages([...images, imageSrc]);
       })
     })
   
     const capture = useCallback(
       () => {
         const imageSrc = userVideo.current.getScreenshot();
-        socket.emit("snap-image", {imageSrc: JSON.stringify(imageSrc), room});
+        socket.emit("snap-image", {imageSrc, room});
       },
       [userVideo, room]
     );
