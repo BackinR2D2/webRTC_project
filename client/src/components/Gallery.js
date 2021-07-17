@@ -22,9 +22,9 @@ function Gallery({images}) {
                     {
                         images.map((image, i) => (
                             <Box className="img" key={i}>
-                                {console.log(image.imageSrc)}
-                                <a href={image.imageSrc} download="image.jpeg">
-                                    <img alt="userImg" src={image.imageSrc} style={{margin: `${0} auto`}} />
+                                {console.log(image.imageSrc.imageSrc)}
+                                <a href={image.imageSrc.imageSrc} download="image.jpeg">
+                                    <img alt="userImg" src={image.imageSrc.imageSrc} style={{margin: `${0} auto`}} />
                                 </a>
                             </Box>
                         ))
