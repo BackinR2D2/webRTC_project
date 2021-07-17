@@ -4,11 +4,7 @@ import Video from './Video';
 import { Button } from '@chakra-ui/react';
 import {
     FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     Input,
-    SimpleGrid,
     Box,
     useToast,
     Modal,
@@ -50,7 +46,6 @@ function Room() {
 
     useEffect(() => {
         socket.on('notification', data => {
-            // console.log(data);
             toast({
                 title: `${data.title} - ${data.description}`,
                 position: 'top-left',
@@ -100,10 +95,6 @@ function Room() {
                                         <ModalCloseButton />
                                             <ModalBody>
                                                 <List spacing={3}>
-                                                    {/* <ListItem>
-                                                        <ListIcon as={MdCheckCircle} color="green.500" />
-                                                            Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-                                                    </ListItem> */}
                                                     {
                                                         users.map((user, i) => (
                                                             <ListItem key={i}>

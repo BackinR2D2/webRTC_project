@@ -4,11 +4,11 @@ import socket from '../config';
 import Gallery from './Gallery';
 import { Button } from "@chakra-ui/react"
 
-const webcamOptions = {
-  width: 240,
-  height: 180,
-  facingMode: "user"
-};
+// const webcamOptions = {
+//   width: 240,
+//   height: 180,
+//   facingMode: "user"
+// };
 
 function Video({room}) {
     const userVideo = useRef();
@@ -30,7 +30,7 @@ function Video({room}) {
 
     return (
     <div className="vComp">
-      <Webcam ref={userVideo} muted videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
+      <Webcam ref={userVideo} muted /*videoConstraints={webcamOptions}*/ screenshotFormat="image/jpeg" />
       <div className="btnSection">
         <Button className="photoBtn" style={{margin: `${24}px`}} colorScheme="teal" onClick={capture}>Capture photo</Button>
         <Gallery images={images} />
