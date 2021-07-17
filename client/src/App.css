@@ -130,6 +130,6 @@ body {
 
 @media screen and (max-width: 378px) {
   .video {
-    height: initial;
+    height: 55vh;
   }
 }

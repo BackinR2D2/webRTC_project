@@ -5,7 +5,7 @@ function Gallery({images}) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <>
-        <Button onClick={onOpen}>Open Gallery</Button>
+        <Button onClick={onOpen} style={{margin: `${14}px`}}>Open Gallery</Button>
         <Modal
         onClose={onClose}
         isOpen={isOpen}
