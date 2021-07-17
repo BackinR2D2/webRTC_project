@@ -3,7 +3,7 @@ import { SimpleGrid, Box, Button, useDisclosure, Modal, ModalBody, ModalOverlay,
 
 function Gallery({images}) {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    
+    console.log(images);
     return (
         <>
         <Button onClick={onOpen}>Open Gallery</Button>
@@ -22,6 +22,7 @@ function Gallery({images}) {
                     {
                         images.map((imageSrc, i) => (
                             <Box className="img" key={i}>
+                                {console.log(imageSrc)}
                                 <a href={imageSrc} download="image.jpeg">
                                     <img alt="userImg" src={imageSrc} style={{margin: `${0} auto`}} />
                                 </a>
