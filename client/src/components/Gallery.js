@@ -20,11 +20,11 @@ function Gallery({images}) {
             <ModalBody>
                 <SimpleGrid columns={4} spacing="4em" className="galleryPhotos">
                     {
-                        images.map((imageSrc, i) => (
+                        images.map((image, i) => (
                             <Box className="img" key={i}>
-                                {console.log(imageSrc)}
-                                <a href={imageSrc} download="image.jpeg">
-                                    <img alt="userImg" src={imageSrc} style={{margin: `${0} auto`}} />
+                                {console.log(image.imageSrc)}
+                                <a href={image.imageSrc} download="image.jpeg">
+                                    <img alt="userImg" src={image.imageSrc} style={{margin: `${0} auto`}} />
                                 </a>
                             </Box>
                         ))
