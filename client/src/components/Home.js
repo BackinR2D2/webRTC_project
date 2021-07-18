@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Container, Box, Button, Tooltip, useClipboard, useToast } from "@chakra-ui/react";
 import url from '../urls';
+import socket from "../config";
 
 function Home() {
   const [id, setId] = useState("");
@@ -20,6 +21,10 @@ function Home() {
     setId(link);
     setGenerated(true);
   }
+
+  useEffect(() => {
+    socket.connect();
+  }, []);
 
   useEffect(() => {
     if(hasCopied) {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import socket from '../config';
 import Video from './Video';
 import { Button } from '@chakra-ui/react';
@@ -42,10 +42,12 @@ function Room() {
         socket.on("message", (data) => {
             setMessages([...messages, data]);
         })
-    })
+
+    }, [users, messages])
 
     useEffect(() => {
         socket.on('notification', data => {
+            console.log(data);
             toast({
                 title: `${data.title} - ${data.description}`,
                 position: 'top-left',
@@ -53,7 +55,32 @@ function Room() {
                 isClosable: true,
             })
         })
+
+        socket.on('nameTaken', () => {
+            console.log('name is taken');
+            toast({
+                title: `Name is already taken`,
+                position: 'top',
+                duration: 2000,
+                isClosable: true,
+                status: 'error'
+            });
+            setNameGenerated(false);
+            return;
+        })
     }, [toast])
+
+    const ev = useRef(null);
+    useEffect(() => {
+        window.addEventListener('popstate', function (e) {
+            ev.current = e;
+        });
+        return () => {
+            if(ev.current.state === null) {
+                socket.disconnect();
+            }
+        }
+    }, [ev])
 
     const handleMessage = (e) => {
         e.preventDefault();
