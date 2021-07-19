@@ -13,6 +13,7 @@ const webcamOptions = {
 function Video({room}) {
   const userVideo = useRef();
   const [images, setImages] = useState([]);
+  const [videoError, setVideoError] = useState(false);
   const toast = useToast();
 
     useEffect(() => {
@@ -36,17 +37,33 @@ function Video({room}) {
 
     }, [images, toast])
   
+    const handleVideoError = (e) => {
+      toast({
+        title: 'Warning',
+        description: 'Camera must be allowed in order to send pictures',
+        position: 'top',
+        duration: 3000,
+        status: 'warning',
+        isClosable: true,
+      })
+      setVideoError(true);
+    }
+
     const capture = useCallback(
       () => {
         const imageSrc = userVideo.current.getScreenshot();
-        socket.emit("snap-image", {imageSrc, room});
+        if(imageSrc === null) {
+          
+        } else {
+          socket.emit("snap-image", {imageSrc, room});
+        }
       },
       [userVideo, room]
     );
 
     return (
     <div className="vComp">
-      <Webcam style={{borderRadius: `${14}px`}} ref={userVideo} videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
+      <Webcam onUserMediaError={handleVideoError} style={{borderRadius: `${14}px`}} className={videoError ? 'videoError' : ''} ref={userVideo} videoConstraints={webcamOptions} screenshotFormat="image/jpeg" />
       <div className="btnSection">
         <Button className="photoBtn" style={{margin: `${14}px`}} colorScheme="teal" onClick={capture}>Capture photo</Button>
         <Gallery images={images} />
