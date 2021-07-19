@@ -19,9 +19,7 @@ function Video({room}) {
       socket.on("image", (imageSrc) => {
         setImages([...images, imageSrc]);
       })
-    })
-  
-    useEffect(() => {
+
       socket.on("image", (_) => {
         toast({
           title: 'New photo',
@@ -31,8 +29,13 @@ function Video({room}) {
           isClosable: true,
         })
       })
-    }, [toast])
 
+      return () => {
+        socket.off('image');
+      }
+
+    }, [images, toast])
+  
     const capture = useCallback(
       () => {
         const imageSrc = userVideo.current.getScreenshot();

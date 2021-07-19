@@ -34,6 +34,12 @@ function Room() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const toast = useToast();
 
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
     useEffect(() => {
         socket.on('users', data => {
             setUsers(data);
@@ -41,13 +47,18 @@ function Room() {
 
         socket.on("message", (data) => {
             setMessages([...messages, data]);
+            scrollToBottom();
         })
+
+        return () => {
+            socket.off('users');
+            socket.off('message');
+        }
 
     }, [users, messages])
 
     useEffect(() => {
         socket.on('notification', data => {
-            console.log(data);
             toast({
                 title: `${data.title} - ${data.description}`,
                 position: 'top-left',
@@ -57,7 +68,6 @@ function Room() {
         })
 
         socket.on('nameTaken', () => {
-            console.log('name is taken');
             toast({
                 title: `Name is already taken`,
                 position: 'top',
@@ -68,6 +78,10 @@ function Room() {
             setNameGenerated(false);
             return;
         })
+
+        return () => {
+            socket.off('notification');
+        }
     }, [toast])
 
     const ev = useRef(null);
@@ -76,7 +90,7 @@ function Room() {
             ev.current = e;
         });
         return () => {
-            if(ev.current.state === null) {
+            if(ev.current && ev.current.state === null) {
                 socket.disconnect();
             }
         }
@@ -154,6 +168,7 @@ function Room() {
                                             </div>
                                         ))
                                     }
+                                    <div ref={messagesEndRef} />
                                 </div>
                                 <form onSubmit={handleMessage} style={{position: 'relative', bottom: 0, width: `${100}%`}}>
                                     <FormControl style={{display: 'flex'}}>
