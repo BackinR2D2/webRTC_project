@@ -37,7 +37,7 @@ function Video({room}) {
 
     }, [images, toast])
   
-    const handleVideoError = (e) => {
+    const handleVideoError = (_) => {
       toast({
         title: 'Warning',
         description: 'Camera must be allowed in order to send pictures',
@@ -52,9 +52,7 @@ function Video({room}) {
     const capture = useCallback(
       () => {
         const imageSrc = userVideo.current.getScreenshot();
-        if(imageSrc === null) {
-          
-        } else {
+        if(imageSrc !== null) {
           socket.emit("snap-image", {imageSrc, room});
         }
       },
